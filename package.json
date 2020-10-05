@@ -1,0 +1,41 @@
+{
+    "name": "streamcards-api",
+    "version": "1.0.0",
+    "description": "A Streamloots clone API for testing purposes",
+    "main": "index.js",
+    "scripts": {
+        "tsc": "tsc",
+        "dev": "ts-node-dev ./app/app.ts --respawn --transpileOnly ",
+        "prod": "tsc && node ./build/app.js",
+        "test": "npm test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/IsaacRF/streamcards-api.git"
+    },
+    "keywords": [
+        "node",
+        "nodejs",
+        "api",
+        "rest",
+        "restapi",
+        "javascript",
+        "typescript",
+        "js",
+        "ts"
+    ],
+    "author": "Isaac RF",
+    "license": "GPL-3.0-or-later",
+    "bugs": {
+        "url": "https://github.com/IsaacRF/streamcards-api/issues"
+    },
+    "homepage": "https://github.com/IsaacRF/streamcards-api#readme",
+    "dependencies": {
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.8",
+        "ts-node-dev": "^1.0.0-pre.63",
+        "typescript": "^4.0.3"
+    }
+}
