@@ -3,7 +3,7 @@ import createError, { HttpError } from 'http-errors';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from '../api';
-//import config from '../config';
+import config from '../config';
 
 export default ({ app }: { app: express.Application }) => {
     /**
@@ -31,8 +31,7 @@ export default ({ app }: { app: express.Application }) => {
     // Middleware that transforms the raw string of req.body into json
     app.use(bodyParser.json());
     // Load API routes
-    //TODO: Load from config
-    //app.use(config.api.prefix, routes());
+    app.use(config.api.prefix, routes());
     app.use('/api', routes());
 
     /// catch 404 and forward to error handler

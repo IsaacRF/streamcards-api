@@ -1,20 +1,20 @@
 import express = require('express');
 import Logger from './loaders/logger';
+import config from './config';
 
 async function startServer() {
     const app: express.Application = express();
 
     await require('./loaders').default({ expressApp: app });
 
-    //TODO: Move port to config
-    //app.listen(config.port, (err) => {
-    app.listen(3000, () => {
-        console.log('Example app listening on port 3000!');
+    app.listen(config.server.port, () => {
         Logger.info(`
             ################################################
-            🛡️  Server listening on port: 3000 🛡️
+            🛡️  Server listening on port: ${config.server.port} 🛡️
             ################################################
         `);
+    }).on('error', () => {
+        Logger.error('❌ Server Init Error');
     });
 }
 
