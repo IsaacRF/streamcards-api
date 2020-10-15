@@ -32,7 +32,6 @@ export default ({ app }: { app: express.Application }) => {
     app.use(bodyParser.json());
     // Load API routes
     app.use(config.api.prefix, routes());
-    app.use('/api', routes());
 
     /// catch 404 and forward to error handler
     app.use((req: Request, res: Response, next: NextFunction) => {
@@ -42,23 +41,17 @@ export default ({ app }: { app: express.Application }) => {
 
     /// error handlers
     app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
-        /**
-         * Handle 401 thrown by express-jwt library
-         */
-        if (err.name === 'UnauthorizedError') {
-            return res
-                .status(err.status)
-                .send({ message: err.message })
-                .end();
+        switch (err.name) {
+            /**
+             * MongoDB schema validation error
+             */
+            case 'ValidationError': {
+                err.status = 400
+            }
         }
         return next(err);
     });
     app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
-        res.status(err.status || 500);
-        res.json({
-            errors: {
-                message: err.message,
-            },
-        });
+        res.status(err.status || 500).send({ message: err.message });
     });
 };

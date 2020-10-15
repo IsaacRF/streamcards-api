@@ -37,6 +37,7 @@
         "express": "^4.17.1",
         "http-errors": "^1.8.0",
         "method-override": "^3.0.0",
+        "mongodb": "^3.6.2",
         "mongoose": "^5.10.8",
         "winston": "^3.3.3"
     },

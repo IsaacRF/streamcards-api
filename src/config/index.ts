@@ -23,6 +23,10 @@ export default {
         prefix: '/api',
     },
     /**
+     * Database URL
+     */
+    databaseURL: process.env.MONGODB_URI,
+    /**
      * Used by winston logger
      */
     logs: {

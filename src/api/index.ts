@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import common from './routes/common-routes';
+import common from './routes/common';
+import cards from './routes/cards';
 
 /**
  * API default module.
@@ -8,7 +9,8 @@ import common from './routes/common-routes';
  */
 export default () => {
 	const app = Router();
-	common(app);
+    common(app);
+    cards(app);
 
 	return app;
 }
