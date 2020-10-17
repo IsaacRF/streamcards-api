@@ -1,6 +1,6 @@
-import { CardsServiceMongo } from './../../services/cards-service-mongo';
-import { CardsService } from './../../services/cards-service';
+import { CardsRepository } from './../../repositories/cards-repository';
 import { Router, Request, Response, NextFunction } from 'express';
+import { container } from "tsyringe";
 import Logger from './../../loaders/logger';
 const route = Router();
 
@@ -8,20 +8,17 @@ const route = Router();
  * Cards api routes
  */
 export default (app: Router) => {
+    const cardsRepository = container.resolve(CardsRepository);
     app.use('/cards', route);
 
     //Create card URL
     route.post('/create',
         async function (req: Request, res: Response, next: NextFunction) {
             try {
-                //TODO: Inject this
-                const cardDTO = req.body;
-                let service: CardsServiceMongo = new CardsServiceMongo();
-                const card = await service.createCard(cardDTO);
-
+                const card = await cardsRepository.createCard(req.body);
                 res.status(200).json(card);
             } catch (e) {
-                Logger.error('🔥 error: %o',  e );
+                Logger.error('🔥 error: %o', e);
                 return next(e);
             }
         });
