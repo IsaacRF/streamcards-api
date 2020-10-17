@@ -5,7 +5,7 @@ import { Card } from './../models/card';
  */
 export interface CardsService {
     createCard(card: Card): Promise<Card>;
-    getCard(id: number): Promise<Card>;
+    getCard(id: string): Promise<Card>;
     updateCard(card: Card): Promise<Card>;
     deleteCard(card: Card): Promise<Card>;
 }

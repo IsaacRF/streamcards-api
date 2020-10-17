@@ -1,7 +1,9 @@
+import { HttpError } from 'http-errors';
 import { CardsRepository } from './../../repositories/cards-repository';
 import { Router, Request, Response, NextFunction } from 'express';
 import { container } from "tsyringe";
 import Logger from './../../loaders/logger';
+import { Card } from '../../models/card';
 const route = Router();
 
 /**
@@ -12,7 +14,7 @@ export default (app: Router) => {
     app.use('/cards', route);
 
     //Create card URL
-    route.post('/create',
+    route.post('/',
         async function (req: Request, res: Response, next: NextFunction) {
             try {
                 const card = await cardsRepository.createCard(req.body);
@@ -24,9 +26,52 @@ export default (app: Router) => {
         });
 
     //Get card URL
-    route.get('/:cardId', function (req, res) {
-        res
-            .status(200)
-            .send(`TEST. Requesting info from card ${req.params.cardId}`);
-    });
+    route.get('/:cardId',
+        async function (req: Request, res: Response, next: NextFunction) {
+            try {
+                const card = await cardsRepository.getCard(req.params.cardId);
+                response(card, res);
+            } catch (e) {
+                Logger.error('🔥 error: %o', e);
+                return next(e);
+            }
+        });
+
+    route.put('/',
+        async function (req: Request, res: Response, next: NextFunction) {
+            try {
+                const card = await cardsRepository.updateCard(req.body);
+                response(card, res);
+            } catch (e) {
+                Logger.error('🔥 error: %o', e);
+                return next(e);
+            }
+        });
+
+    route.delete('/',
+        async function (req: Request, res: Response, next: NextFunction) {
+            try {
+                const card = await cardsRepository.deleteCard(req.body);
+                response(card, res);
+            } catch (e) {
+                Logger.error('🔥 error: %o', e);
+                return next(e);
+            }
+        });
+
+    /**
+     * Helper func to handle response and errors for not found card
+     *
+     * @param card Card returned from call. Null if not found or not updated / deleted
+     * @param res Response
+     */
+    function response(card: Card, res: Response) {
+        if (card == null) {
+            let e = new Error();
+            e.name = "CardNotFound";
+            throw (e)
+        } else {
+            res.status(200).json(card);
+        }
+    }
 }

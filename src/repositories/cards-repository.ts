@@ -20,7 +20,7 @@ export class CardsRepository {
         return this.cardsService.createCard(card);
     }
 
-    async getCard(id: number): Promise<Card> {
+    async getCard(id: string): Promise<Card> {
         return this.cardsService.getCard(id);
     }
 

@@ -45,12 +45,17 @@ export default ({ app }: { app: express.Application }) => {
     /// error handlers
     app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
         switch (err.name) {
-            /**
-             * MongoDB schema validation error
-             */
-            case 'ValidationError': {
-                err.status = 400
-            }
+
+            //MongoDB schema validation error
+            case 'ValidationError':
+                err.status = 400;
+                break;
+            //ObjectId casting error
+            case 'CastError':
+            case 'CardNotFound':
+                err.status = 404;
+                err.message = "Card not found";
+                break;
         }
         return next(err);
     });
