@@ -4,6 +4,8 @@ import expressLoader from './express';
 import mongooseLoader from './mongoose';
 import Logger from './logger';
 import dependencyInjector from "./dependency-injector";
+//Must be imported once so they can be triggered
+import './events';
 
 /**
  * Loaders default module

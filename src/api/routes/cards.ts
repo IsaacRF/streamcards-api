@@ -1,9 +1,8 @@
-import { HttpError } from 'http-errors';
 import { CardsRepository } from './../../repositories/cards-repository';
 import { Router, Request, Response, NextFunction } from 'express';
 import { container } from "tsyringe";
-import Logger from './../../loaders/logger';
 import { Card } from '../../models/card';
+import Logger from './../../loaders/logger';
 const route = Router();
 
 /**
