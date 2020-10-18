@@ -1,5 +1,5 @@
 import { Card } from './card';
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 import { Rarity } from './rarity';
 
 /**
@@ -20,7 +20,14 @@ const CardMongo = new mongoose.Schema(
             required: [
                 function(this: void) { return ((this as unknown) as Card).published; },
                 'Card image is required when published state is true'
-            ]
+            ],
+            validate: [
+                function(image) {
+                    const urlRegex = /(ftp|http|https):\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)?/;
+                    return urlRegex.test(image);
+                },
+                'Card image URL is in a wrong format'
+            ],
         },
         rarity: {
             type: String,
