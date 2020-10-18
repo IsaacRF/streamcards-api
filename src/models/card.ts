@@ -6,8 +6,7 @@ import { Rarity } from './rarity'
 export interface Card {
     _id: string,
     name: string;
-    //TODO: Add image to interface
-    //image: Buffer;
+    image: string;
     rarity: Rarity;
     limited: boolean;
     numberAvailable: number;

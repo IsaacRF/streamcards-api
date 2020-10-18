@@ -15,8 +15,13 @@ const CardMongo = new mongoose.Schema(
                 'Card name is required when published state is true'
             ]
         },
-        //TODO: Add image to schema
-        //image: Buffer,
+        image: {
+            type: String,
+            required: [
+                function(this: void) { return ((this as unknown) as Card).published; },
+                'Card image is required when published state is true'
+            ]
+        },
         rarity: {
             type: String,
             enum: Object.values(Rarity),
