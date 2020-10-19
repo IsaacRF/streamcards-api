@@ -36,6 +36,7 @@ export default (app: Router) => {
             }
         });
 
+    //Update card attributes URL
     route.put('/',
         async function (req: Request, res: Response, next: NextFunction) {
             try {
@@ -47,6 +48,29 @@ export default (app: Router) => {
             }
         });
 
+    route.patch('/publish',
+        async function (req: Request, res: Response, next: NextFunction) {
+            try {
+                const cards = await cardsRepository.changePublishedState(true, req.body);
+                res.status(200).json(cards);
+            } catch (e) {
+                Logger.error('🔥 error: %o', e);
+                return next(e);
+            }
+        });
+
+    route.patch('/unpublish',
+        async function (req: Request, res: Response, next: NextFunction) {
+            try {
+                const cards = await cardsRepository.changePublishedState(false, req.body);
+                res.status(200).json(cards);
+            } catch (e) {
+                Logger.error('🔥 error: %o', e);
+                return next(e);
+            }
+        });
+
+    //Delete Card URL
     route.delete('/',
         async function (req: Request, res: Response, next: NextFunction) {
             try {
