@@ -11,4 +11,5 @@ export interface Card {
     limited: boolean;
     numberAvailable: number;
     published: boolean;
+    owner: string;
 }

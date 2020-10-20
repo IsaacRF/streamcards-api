@@ -3,6 +3,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { container } from "tsyringe";
 import { Card } from '../../models/card';
 import Logger from './../../loaders/logger';
+import { isAuthOptional, isAuthRequired } from '../middlewares/isAuth';
 const route = Router();
 
 /**
@@ -14,6 +15,7 @@ export default (app: Router) => {
 
     //Create card URL
     route.post('/',
+        isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
                 const card = await cardsRepository.createCard(req.body);
@@ -26,8 +28,10 @@ export default (app: Router) => {
 
     //Get card URL
     route.get('/:cardId',
+        isAuthOptional,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
+                //TODO: Now using req.user._id obtained from auth, we can omit certain card details depending on logged user / no user logged
                 const card = await cardsRepository.getCard(req.params.cardId);
                 response(card, res);
             } catch (e) {
@@ -38,6 +42,7 @@ export default (app: Router) => {
 
     //Update card attributes URL
     route.put('/',
+        isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
                 const card = await cardsRepository.updateCard(req.body);
@@ -49,6 +54,7 @@ export default (app: Router) => {
         });
 
     route.patch('/publish',
+        isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
                 const cards = await cardsRepository.changePublishedState(true, req.body);
@@ -60,6 +66,7 @@ export default (app: Router) => {
         });
 
     route.patch('/unpublish',
+        isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
                 const cards = await cardsRepository.changePublishedState(false, req.body);
@@ -72,6 +79,7 @@ export default (app: Router) => {
 
     //Delete Card URL
     route.delete('/',
+        isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
                 const card = await cardsRepository.deleteCard(req.body);

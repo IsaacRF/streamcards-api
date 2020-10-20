@@ -1,5 +1,5 @@
 import { Card } from './card';
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { Rarity } from './rarity';
 
 /**
@@ -52,6 +52,11 @@ const CardMongo = new mongoose.Schema(
         published: {
             type: Boolean,
             default: false
+        },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: [true, "Owner ID is required in card creation"]
         }
     },
     { timestamps: true }
