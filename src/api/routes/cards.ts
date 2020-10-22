@@ -18,6 +18,7 @@ export default (app: Router) => {
         isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
+                //FIXME: Assign auth user ID instead of owner sent in request to prevent impersonation
                 const card = await cardsRepository.createCard(req.body);
                 res.status(200).json(card);
             } catch (e) {
@@ -40,11 +41,31 @@ export default (app: Router) => {
             }
         });
 
+    //Get cards by owner URL
+    route.get('/owner/:ownerId',
+        isAuthOptional,
+        async function (req: Request, res: Response, next: NextFunction) {
+            try {
+                //TODO: Now using req.user._id obtained from auth, we can omit certain card details depending on logged user / no user logged
+                const cardsPerPage = Number(req.query.cardsPerPage) || 10;
+                const lastCardId = req.query.lastCardId?.toString() || '';
+                const cards = await cardsRepository.getCardsByOwner(req.params.ownerId, cardsPerPage, lastCardId);
+                Logger.info(`Retrieving ${cardsPerPage} cards from card: ${lastCardId} from owner ${req.params.ownerId}`);
+
+                const nextPageUrl = getNextPageUrl(req, cardsPerPage, cards);
+                res.status(200).json({nextPageUrl, cards});
+            } catch (e) {
+                Logger.error('🔥 error: %o', e);
+                return next(e);
+            }
+        });
+
     //Update card attributes URL
     route.put('/',
         isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
+                //FIXME: Check if card to update is property of auth user to prevent impersonation
                 const card = await cardsRepository.updateCard(req.body);
                 response(card, res);
             } catch (e) {
@@ -57,6 +78,7 @@ export default (app: Router) => {
         isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
+                //FIXME: Check if cards to publish are property of auth user to prevent impersonation
                 const cards = await cardsRepository.changePublishedState(true, req.body);
                 res.status(200).json(cards);
             } catch (e) {
@@ -69,6 +91,7 @@ export default (app: Router) => {
         isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
+                //FIXME: Check if cards to unpublish are property of auth user to prevent impersonation
                 const cards = await cardsRepository.changePublishedState(false, req.body);
                 res.status(200).json(cards);
             } catch (e) {
@@ -82,6 +105,7 @@ export default (app: Router) => {
         isAuthRequired,
         async function (req: Request, res: Response, next: NextFunction) {
             try {
+                //FIXME: Check if card to delete is property of auth user to prevent impersonation
                 const card = await cardsRepository.deleteCard(req.body);
                 response(card, res);
             } catch (e) {
@@ -104,5 +128,16 @@ export default (app: Router) => {
         } else {
             res.status(200).json(card);
         }
+    }
+
+    /**
+     * Helper func to get next page URL
+     * @param req Request
+     * @param cardsPerPage Number of cards per page
+     * @param cards Cards returned in the query to get the last card ID
+     */
+    function getNextPageUrl(req: Request, cardsPerPage: number, cards: Card[]) : string {
+        const lastCardId = cards[cards.length-1]._id;
+        return `${req.protocol}://${req.hostname}${req.baseUrl}${req.path}?cardsPerPage=${cardsPerPage}&lastCardId=${lastCardId}`;
     }
 }

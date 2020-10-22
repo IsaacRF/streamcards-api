@@ -43,6 +43,16 @@ export class CardsRepository {
     }
 
     /**
+     * Retrieves all cards from an specific owner
+     * @param ownerId Owner user ID
+     * @param cardsPerPage Number of cards retrieved for every page
+     * @param lastCardId Last card from previous query ID for efficient pagination
+     */
+    async getCardsByOwner(ownerId: string, cardsPerPage: number, lastCardId: string): Promise<Card[]> {
+        return this.cardsService.getCards(ownerId, cardsPerPage, lastCardId);
+    }
+
+    /**
      * Updates all attributes of a card
      *
      * [Events]:
