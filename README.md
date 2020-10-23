@@ -82,8 +82,29 @@ Output is located in *./build*
 npm run tsc
 ```
 
-### Example calls
---- TODO: Postman examples
+### Sample calls
+You can test the API importing the [API sample calls collection](https://github.com/IsaacRF/streamcards-api/blob/main/call-examples/streamcards-api.postman_collection.json) to **Postman**. This collection contains sample data and required arguments for every route.
+
+### Endpoints
+All endpoints and detailed parameters are documented [here](https://documenter.getpostman.com/view/11626220/TVYDeKbL)
+
+API default route is http://localhost:3000/api
+
+- Create Card -> [***POST***] http://localhost:3000/api/cards
+- Get Card by ID -> [***GET***] http://localhost:3000/api/cards/-cardID-
+- Get Cards by Owner -> [***GET***] http://localhost:3000/api/cards/owner/-ownerID-
+    - Params
+        - cardsPerPage = -Defaults to 10-
+        - lastCardId = Used for pagination. First page if null
+- Update Card Info -> [***PUT***] http://localhost:3000/api/cards
+- Delete Card -> [***DELETE***] http://localhost:3000/api/cards
+- Bulk Publish Cards -> [***PATCH***] http://localhost:3000/api/cards/publish
+- Bulk Unpublish Cards -> [***PATCH***] http://localhost:3000/api/cards/unpublish
+
+This JWT token can be used for auth (Auth = Bearer Token):
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhkYjI2YTRhNjYyOTU3OTk1NjAxODIiLCJuYW1lIjoiVGVzdCAxIn0.6pUeKaVtL-4k5Y8E7BsnN3t2C_GYCXe5zChA4ez5DDc
+```
 
 ## TODO
 - [ ] API needs a SignIn endpoint to generate the jwt auth token
