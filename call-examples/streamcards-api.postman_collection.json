@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "8e5e2d69-5e9a-42c9-9680-ae0d9398a887",
+		"name": "Streamcards API",
+		"description": "Basic calls for Streamcards clone API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/api/cards",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhkYjI2YTRhNjYyOTU3OTk1NjAxODIiLCJuYW1lIjoiVGVzdCAxIn0.6pUeKaVtL-4k5Y8E7BsnN3t2C_GYCXe5zChA4ez5DDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Test Card 10\",\r\n    \"rarity\": \"Legendary\",\r\n    \"image\": \"https://via.placeholder.com/300x500\",\r\n    \"published\": false,\r\n    \"owner\": \"5f8db26a4a66295799560182\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cards"
+					]
+				},
+				"description": "Create card"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/cards/5f8db8ad3caab6531c4dd9d5",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhkYjI2YTRhNjYyOTU3OTk1NjAxODIiLCJuYW1lIjoiVGVzdCAxIn0.6pUeKaVtL-4k5Y8E7BsnN3t2C_GYCXe5zChA4ez5DDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/cards/5f8db8ad3caab6531c4dd9d5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cards",
+						"5f8db8ad3caab6531c4dd9d5"
+					]
+				},
+				"description": "Get a card by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/cards/owner/5f8db26a4a66295799560182?cardsPerPage=3&lastCardId=5f91559d22880a5e04a18e24",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhkYjI2YTRhNjYyOTU3OTk1NjAxODIiLCJuYW1lIjoiVGVzdCAxIn0.6pUeKaVtL-4k5Y8E7BsnN3t2C_GYCXe5zChA4ez5DDc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/cards/owner/5f8db26a4a66295799560182?cardsPerPage=3&lastCardId=5f91559d22880a5e04a18e24",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cards",
+						"owner",
+						"5f8db26a4a66295799560182"
+					],
+					"query": [
+						{
+							"key": "cardsPerPage",
+							"value": "3"
+						},
+						{
+							"key": "lastCardId",
+							"value": "5f91559d22880a5e04a18e24"
+						}
+					]
+				},
+				"description": "Get all cards from an owner, paginated"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/cards",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"5f8b4aa92f12c654acaf9b47\",\r\n    \"name\" : \"Test Card DI 2 UPDATED\",\r\n    \"rarity\": \"Normal\",\r\n    \"limited\": false,\r\n    \"numberAvailable\": 0,\r\n    \"published\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cards"
+					]
+				},
+				"description": "Update card"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/cards",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"5f8b4aa92f12c654acaf9b47\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cards"
+					]
+				},
+				"description": "Delete card"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/cards/publish",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"_id\": \"5f8c6edeaa266618d4f338ce\",\r\n        \"name\": \"This doesn't change the name, cards passed can have any attributes\"\r\n    },\r\n    {\r\n        \"_id\": \"5f8c6d1f41229b67e84bb383\",\r\n        \"name\": \"This doesn't change the name, cards passed can have any attributes\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cards/publish",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cards",
+						"publish"
+					]
+				},
+				"description": "Publish a collection of cards"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/cards/unpublish",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"_id\": \"5f8c6edeaa266618d4f338ce\",\r\n        \"name\": \"This doesn't change the name, cards passed can have any attributes\"\r\n    },\r\n    {\r\n        \"_id\": \"5f8c6d1f41229b67e84bb383\",\r\n        \"name\": \"This doesn't change the name, cards passed can have any attributes\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cards/unpublish",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cards",
+						"unpublish"
+					]
+				},
+				"description": "Unpublish a collection of cards"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhkYjI2YTRhNjYyOTU3OTk1NjAxODIiLCJuYW1lIjoiVGVzdCAxIn0.6pUeKaVtL-4k5Y8E7BsnN3t2C_GYCXe5zChA4ez5DDc",
+				"type": "string"
+			}
+		]
+	},
+	"protocolProfileBehavior": {}
+}
