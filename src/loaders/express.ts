@@ -8,7 +8,7 @@ import config from '../config';
 /**
  * Express initializer
  */
-export default ({ app }: { app: express.Application }) => {
+export default async ({ app }: { app: express.Application }) => {
     /**
      * Health Check endpoints
      */

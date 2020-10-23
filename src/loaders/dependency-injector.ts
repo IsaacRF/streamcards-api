@@ -6,7 +6,7 @@ import Logger from './../loaders/logger';
 /**
  * Dependency injector / provider
  */
-export default () => {
+export default async () => {
     try {
         //Provide Cards Service
         container.register("CardsService", {
