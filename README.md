@@ -53,10 +53,12 @@ At this initial state the API doesn't have a SignIn endpoint able to generate a 
 ![jwt-debugger](https://user-images.githubusercontent.com/2803925/96904343-45499700-1497-11eb-8426-f7c87d62e0d8.png)
 
 ### Data
---- TODO: MongoDB and Mongoose
+Data is stored in **MongoDB** documents, and handled via **Mongoose** Models. These models are also abstracted in interfaces so services and repositories don't depend on MongoDB implementations.
 
 ### Routing
---- TODO: Express routing
+API endpoints and routes are handled via express controllers (./api/routes). Every part of the API is contained into its own route file.
+
+Express controllers also follow the single responsibility principle, only containing data parsing and repository calls.
 
 ## Usage
 ### Run
@@ -80,7 +82,10 @@ Output is located in *./build*
 npm run tsc
 ```
 
+### Example calls
+--- TODO: Postman examples
+
 ## TODO
-- [ ] API needs an SignIn endpoint to generate the jwt auth token
+- [ ] API needs a SignIn endpoint to generate the jwt auth token
 - [ ] Auth has no "isOwner" check on card operations. Need to prevent impersonations
 - [ ] Dockerize API
