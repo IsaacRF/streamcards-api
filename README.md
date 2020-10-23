@@ -109,4 +109,5 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhkYjI2YTRhNjYyOTU3OTk1NjAxODI
 ## TODO
 - [ ] API needs a SignIn endpoint to generate the jwt auth token
 - [ ] Auth has no "isOwner" check on card operations. Need to prevent impersonations
+- [ ] Testing
 - [ ] Dockerize API
