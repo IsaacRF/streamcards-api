@@ -24,9 +24,11 @@ export class CardsRepository {
      * [Events]:
      * - onCardPublished: Fired if card is published
      *
+     * @param ownerId Id of the auth user / card owner
      * @param card Card to create
      */
-    async createCard(card: Card): Promise<Card> {
+    async createCard(ownerId: string, card: Card): Promise<Card> {
+        card.owner = ownerId;
         const cardCreated = await this.cardsService.createCard(card);
         this.eventDispatcher.dispatch("onCardCreated", cardCreated);
         if (cardCreated.published) { this.eventDispatcher.dispatch("onCardPublished", cardCreated); }

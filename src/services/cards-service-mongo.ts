@@ -25,7 +25,7 @@ export class CardsServiceMongo implements CardsService {
         const cards = await CardMongo.find(
             conditions,
             null,
-            { limit: cardsPerPage/*, skip: cardsPerPage * (page - 1)*/ }
+            { limit: cardsPerPage }
         );
         return cards as Card[];
     }
